@@ -1,3 +1,3 @@
 # cled
 
-`docker run --privileged --network=host --restart=always chidoba/cled`
+`docker run --privileged --network=host --restart=always -d chidoba/cled`
