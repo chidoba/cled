@@ -29,6 +29,10 @@ for i in range(LED_COUNT):
 # Create a new flask instance that
 app = Flask(__name__)
 
+@app.route('/health', methods=['GET'])
+# GET endpoint that always responds ok
+def health():
+    return 'OK', 200
 
 @app.route('/', methods=['POST'])
 # POST endpoint that handles updates to the led array
