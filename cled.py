@@ -8,7 +8,7 @@ import time
 from threading import Thread
 
 # Amount of LEDs that the strip has
-LED_COUNT = 150
+LED_COUNT = 200
 
 # Create the neopixel object
 pixels = neopixel.NeoPixel(
