@@ -2,6 +2,7 @@
 
 import board
 import neopixel
+from escpos.printer import Usb
 from flask import Flask
 from flask import request
 import time
@@ -14,7 +15,7 @@ LED_COUNT = 200
 pixels = neopixel.NeoPixel(
     board.D18, LED_COUNT, auto_write=False, brightness=0.9)
 
-
+# Represents an led
 class CLed:
     def __init__(self, color, blinking):
         self.color = color
@@ -57,6 +58,18 @@ def update():
     # Return ok because the state was updated successfully
     return 'OK', 200
 
+@app.route('/print', methods=['POST'])
+# POST endpoint that prints received input on the thermalprinter
+def print():
+    # Get the text content that has been sent
+    content = request.data
+    # Establish connection to the usb device
+    p = Usb(0x0416, 0x5011, out_ep=3)
+    p.text(content.decode("utf-8"))
+    p.cut()
+    p.close()
+    # Return a success message because everything worked correctly
+    return 'OK', 200
 
 class LedLoop(Thread):
     # Loop that runs every second and turns on the appropriate leds
