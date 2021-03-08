@@ -5,6 +5,7 @@ import neopixel
 from escpos.printer import Usb
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 import time
 from threading import Thread
 
@@ -29,6 +30,7 @@ for i in range(LED_COUNT):
 
 # Create a new flask instance that
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/health', methods=['GET'])
 # GET endpoint that always responds ok
