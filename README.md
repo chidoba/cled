@@ -6,4 +6,15 @@ cled is a service that allows you to change leds connected to a raspberry pi and
 
 ### Running the container
 
+```shell
+docker run \
+  --privileged \
+  --network=host \
+  --restart=always \
+  --name cled -d \
+  -e VENDOR_ID=0x0416 \
+  -e DEVICE_ID=0x5011 \
+  -e ENDPOINT=1 \
+  chidoba/cled
+```
 `docker run --privileged --network=host --restart=always --name cled -d chidoba/cled`

@@ -2,12 +2,24 @@
 
 import board
 import neopixel
+import os
 from escpos.printer import Usb
 from flask import Flask
 from flask import request
 from flask_cors import CORS
 import time
 from threading import Thread
+
+# Get the environment configuration
+vendorId = os.environ.get('VENDOR_ID')
+if vendorId == None:
+    vendorId = 0x0416
+deviceId = os.environ.get('DEVICE_ID')
+if deviceId == None:
+    deviceId = 0x5011
+endpoint = os.environ.get('ENDPOINT')
+if endpoint == None:
+    endpoint = 1
 
 # Amount of LEDs that the strip has
 LED_COUNT = 200
@@ -66,7 +78,7 @@ def print():
     # Get the text content that has been sent
     content = request.data
     # Establish connection to the usb device
-    p = Usb(0x0416, 0x5011, out_ep=3)
+    p = Usb(vendorId, deviceId, out_ep=endpoint)
     p.text(content.decode("utf-8"))
     p.cut()
     p.close()
