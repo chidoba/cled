@@ -17,4 +17,3 @@ docker run \
   -e ENDPOINT=1 \
   chidoba/cled
 ```
-`docker run --privileged --network=host --restart=always --name cled -d chidoba/cled`
